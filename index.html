@@ -12,44 +12,54 @@
         }
 
         :root {
-            --primary: #00ff41;
-            --secondary: #008f11;
-            --accent: #00d9ff;
-            --bg-dark: #0a0e27;
-            --bg-card: rgba(10, 20, 40, 0.8);
-            --text-primary: #00ff41;
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --bg-main: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: rgba(26, 26, 46, 0.6);
+            --text-primary: #e0e0e0;
             --text-secondary: #a0a0a0;
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-secondary) 100%);
             color: var(--text-primary);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Matrix Canvas */
-        #matrix-canvas {
+        /* Smooth Background Animation */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
             z-index: -1;
-            opacity: 0.15;
+            animation: gradientShift 15s ease infinite;
         }
 
-        /* Enhanced Navigation */
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 14, 39, 0.95);
+            background: rgba(15, 15, 35, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
             z-index: 1000;
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 30px rgba(0, 255, 65, 0.1);
+            padding: 1.2rem 2rem;
         }
 
         .nav-container {
@@ -61,64 +71,61 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: 1.5rem;
+            font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
             cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            padding: 0.7rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             font-weight: 500;
-            position: relative;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--primary);
-            background: rgba(0, 255, 65, 0.1);
+            background: rgba(102, 126, 234, 0.1);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::after {
-            width: 80%;
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
         /* Sections */
         section {
             min-height: 100vh;
-            padding: 6rem 2rem 2rem;
+            padding: 7rem 2rem 3rem;
             display: none;
-            animation: fadeIn 0.5s ease;
         }
 
         section.active {
             display: block;
+            animation: fadeIn 0.6s ease;
         }
 
         @keyframes fadeIn {
@@ -137,123 +144,57 @@
             margin: 0 auto;
         }
 
-        /* Enhanced Home Section */
+        /* Home Section */
         #home {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-        }
-
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: float 20s infinite;
-            opacity: 0.6;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translate(50px, -50px) scale(1.5);
-                opacity: 1;
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
         }
 
         .hero-title {
-            font-size: 6rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 1rem;
-            letter-spacing: -3px;
-            text-shadow: 0 0 80px rgba(0, 255, 65, 0.5);
-            animation: titleGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes titleGlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5));
-            }
-            50% {
-                filter: drop-shadow(0 0 40px rgba(0, 255, 65, 0.8));
-            }
+            letter-spacing: -2px;
         }
 
         .hero-subtitle {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--text-secondary);
             margin-bottom: 3rem;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             font-weight: 300;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .cta-button {
-            padding: 1.2rem 3rem;
+            padding: 1rem 2.5rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
-            color: #000;
-            font-size: 1.1rem;
-            font-weight: 700;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             border-radius: 12px;
-            transition: all 0.4s ease;
+            transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 8px 30px rgba(0, 255, 65, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0, 255, 65, 0.5);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
         .cta-button.secondary {
@@ -262,87 +203,57 @@
             color: var(--primary);
         }
 
-        .cta-button.secondary:hover {
-            background: rgba(0, 255, 65, 0.1);
-        }
-
-        /* Enhanced Team Section */
-        #team {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
+        /* Team Section */
         .section-title {
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: 800;
             text-align: center;
             margin-bottom: 3rem;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .team-content {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: center;
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             padding: 3rem;
-            border-radius: 24px;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         .team-image-container {
-            position: relative;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.3);
-        }
-
-        .team-image-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 3px solid var(--primary);
-            border-radius: 16px;
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-
-        .team-image-container:hover::before {
-            opacity: 1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .team-image {
             width: 100%;
             height: auto;
             display: block;
-            filter: brightness(0.9) contrast(1.1);
-            transition: transform 0.5s ease;
+            transition: transform 0.5s;
         }
 
         .team-image-container:hover .team-image {
             transform: scale(1.05);
         }
 
-        .team-description {
-            font-size: 1.1rem;
-            line-height: 1.9;
-            color: var(--text-secondary);
-        }
-
         .team-description h3 {
             color: var(--primary);
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         .team-description p {
-            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
         }
 
         .team-stats {
@@ -353,16 +264,16 @@
         }
 
         .stat-box {
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(102, 126, 234, 0.1);
             padding: 1.5rem;
             border-radius: 12px;
-            border: 1px solid rgba(0, 255, 65, 0.2);
             text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
@@ -372,119 +283,62 @@
             color: var(--text-secondary);
         }
 
-        /* Enhanced Notes Section */
-        .notes-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
+        /* Notes Section */
         .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .search-box input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
             background: var(--bg-card);
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.3);
             border-radius: 12px;
-            color: var(--primary);
+            color: var(--text-primary);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .search-box input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-        }
-
-        .search-box::before {
-            content: '🔍';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            color: var(--text-secondary);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: rgba(0, 255, 65, 0.1);
-            border-color: var(--primary);
-            color: var(--primary);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
         }
 
         .notes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .notes-card {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 65, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             border-radius: 16px;
             padding: 2rem;
             cursor: pointer;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .notes-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .notes-card:hover::before {
-            left: 100%;
+            transition: all 0.3s;
         }
 
         .notes-card:hover {
-            background: rgba(0, 40, 20, 0.8);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
         }
 
         .card-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             display: block;
         }
 
         .notes-card h3 {
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             font-weight: 700;
         }
@@ -500,7 +354,7 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 1px solid rgba(0, 255, 65, 0.1);
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .course-count {
@@ -510,46 +364,17 @@
 
         .arrow-icon {
             color: var(--primary);
-            font-size: 1.5rem;
-            transition: transform 0.3s;
+            font-size: 1.2rem;
         }
 
-        .notes-card:hover .arrow-icon {
-            transform: translateX(5px);
-        }
-
-        /* Detailed Notes View */
+        /* Notes Detail */
         .notes-detail {
             display: none;
-            animation: slideUp 0.5s ease;
         }
 
         .notes-detail.active {
             display: block;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb span {
-            color: var(--primary);
+            animation: fadeIn 0.6s ease;
         }
 
         .back-button {
@@ -557,16 +382,15 @@
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             margin-bottom: 2rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             font-weight: 600;
         }
 
         .back-button:hover {
-            background: rgba(0, 255, 65, 0.1);
-            transform: translateX(-5px);
+            background: rgba(102, 126, 234, 0.1);
         }
 
         .semester-section {
@@ -577,7 +401,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(102, 126, 234, 0.1);
             padding: 1.5rem;
             border-radius: 12px;
             border-left: 4px solid var(--primary);
@@ -586,13 +410,13 @@
 
         .semester-header h4 {
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
         }
 
         .semester-badge {
             background: var(--primary);
-            color: #000;
+            color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 700;
@@ -607,91 +431,33 @@
         .course-item {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 65, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.3s ease;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1.5rem;
-            align-items: start;
+            transition: all 0.3s;
         }
 
         .course-item:hover {
             border-color: var(--primary);
-            background: rgba(0, 40, 20, 0.6);
-            transform: translateX(10px);
+            transform: translateX(5px);
         }
 
-        .course-content h5 {
+        .course-item h5 {
             color: var(--primary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
 
-        .course-content p {
+        .course-item p {
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        .course-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.8rem;
-        }
-
-        .tag {
-            background: rgba(0, 217, 255, 0.1);
-            color: var(--accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .course-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .action-btn {
-            padding: 0.6rem 1.2rem;
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .action-btn:hover {
-            background: var(--primary);
-            color: #000;
-            transform: scale(1.05);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            border-radius: 8px;
-        }
-
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .hero-title {
-                font-size: 4rem;
+                font-size: 3rem;
             }
 
             .team-content {
@@ -699,17 +465,7 @@
             }
 
             .team-stats {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.2rem;
+                grid-template-columns: 1fr;
             }
 
             .nav-links {
@@ -718,10 +474,10 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(10, 14, 39, 0.98);
+                background: rgba(15, 15, 35, 0.98);
                 flex-direction: column;
                 padding: 1rem;
-                border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+                border-bottom: 1px solid rgba(102, 126, 234, 0.2);
             }
 
             .nav-links.active {
@@ -735,39 +491,10 @@
             .notes-grid {
                 grid-template-columns: 1fr;
             }
-
-            .course-item {
-                grid-template-columns: 1fr;
-            }
-
-            .team-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 255, 65, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-
     <nav>
         <div class="nav-container">
             <div class="logo" onclick="showSection('home')">AIse hi ECE</div>
@@ -782,13 +509,12 @@
 
     <!-- Home Section -->
     <section id="home" class="active">
-        <div class="particles" id="particles"></div>
-        <div class="container hero-content">
+        <div class="container">
             <h1 class="hero-title">AIse hi ECE</h1>
             <p class="hero-subtitle">ELECTRONICS MEETS INTELLIGENCE</p>
             <div class="hero-buttons">
-                <a href="#" class="cta-button" onclick="showSection('notes')">Explore Notes</a>
-                <a href="#" class="cta-button secondary" onclick="showSection('team')">Meet the Team</a>
+                <a href="#" class="cta-button" onclick="event.preventDefault(); showSection('notes');">Explore Notes</a>
+                <a href="#" class="cta-button secondary" onclick="event.preventDefault(); showSection('team');">Meet the Team</a>
             </div>
         </div>
     </section>
@@ -799,7 +525,9 @@
             <h2 class="section-title">Our Team</h2>
             <div class="team-content">
                 <div class="team-image-container">
-                    <img src="https://i.imgur.com/placeholder.jpg" alt="Our Amazing Team" class="team-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22500%22%3E%3Crect fill=%22%230a0e27%22 width=%22800%22 height=%22500%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22monospace%22 font-size=%2224%22 fill=%22%2300ff41%22%3ETeam Photo Placeholder%3C/text%3E%3C/svg%3E'">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%231a1a2e' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='24' fill='%23667eea'%3EYour Team Photo Here%3C/text%3E%3C/svg%3E" 
+                         alt="Our Amazing Team" 
+                         class="team-image">
                 </div>
                 <div class="team-description">
                     <h3>The Architects of Tomorrow</h3>
@@ -833,14 +561,8 @@
             <h2 class="section-title">Knowledge Base</h2>
             
             <div id="notesOverview">
-                <div class="notes-controls">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search courses, topics, or keywords..." oninput="searchNotes()">
-                    </div>
-                </div>
-
-                <div class="notes-grid" id="notesGrid">
-                    <div class="notes-card" onclick="showBranchNotes('ece')" data-keywords="electronics communication circuits signals systems">
+                <div class="notes-grid">
+                    <div class="notes-card" onclick="showBranchNotes('ece')">
                         <span class="card-icon">⚡</span>
                         <h3>ECE Core</h3>
                         <p>Electronics & Communication Engineering fundamentals, circuits, signals, and systems.</p>
@@ -849,7 +571,8 @@
                             <span class="arrow-icon">→</span>
                         </div>
                     </div>
-                    <div class="notes-card" onclick="showBranchNotes('ai')" data-keywords="artificial intelligence machine learning neural networks deep learning">
+                    
+                    <div class="notes-card" onclick="showBranchNotes('ai')">
                         <span class="card-icon">🤖</span>
                         <h3>AI & ML</h3>
                         <p>Artificial Intelligence, Machine Learning, Deep Learning, and Neural Networks.</p>
@@ -858,7 +581,8 @@
                             <span class="arrow-icon">→</span>
                         </div>
                     </div>
-                    <div class="notes-card" onclick="showBranchNotes('embedded')" data-keywords="embedded systems microcontroller iot raspberry arduino">
+                    
+                    <div class="notes-card" onclick="showBranchNotes('embedded')">
                         <span class="card-icon">🔧</span>
                         <h3>Embedded Systems</h3>
                         <p>Microcontrollers, IoT, Real-time systems, and Hardware-Software integration.</p>
@@ -867,7 +591,8 @@
                             <span class="arrow-icon">→</span>
                         </div>
                     </div>
-                    <div class="notes-card" onclick="showBranchNotes('vlsi')" data-keywords="vlsi chip design layout cmos fabrication">
+                    
+                    <div class="notes-card" onclick="showBranchNotes('vlsi')">
                         <span class="card-icon">💎</span>
                         <h3>VLSI & Design</h3>
                         <p>Chip design, fabrication, layout techniques, and digital design.</p>
@@ -876,7 +601,8 @@
                             <span class="arrow-icon">→</span>
                         </div>
                     </div>
-                    <div class="notes-card" onclick="showBranchNotes('communications')" data-keywords="communication wireless networking 5g protocols modulation">
+                    
+                    <div class="notes-card" onclick="showBranchNotes('communications')">
                         <span class="card-icon">📡</span>
                         <h3>Communications</h3>
                         <p>Wireless systems, networking, signal processing, and protocols.</p>
@@ -885,7 +611,8 @@
                             <span class="arrow-icon">→</span>
                         </div>
                     </div>
-                    <div class="notes-card" onclick="showBranchNotes('programming')" data-keywords="programming python c cpp matlab java coding">
+                    
+                    <div class="notes-card" onclick="showBranchNotes('programming')">
                         <span class="card-icon">💻</span>
                         <h3>Programming</h3>
                         <p>C, C++, Python, MATLAB, and software engineering fundamentals.</p>
@@ -899,9 +626,8 @@
 
             <!-- ECE Core Notes -->
             <div id="ece-notes" class="notes-detail">
-                <button class="back-button" onclick="backToNotesOverview()">← Back to Categories</button>
-                <div class="breadcrumb">Home / Notes / <span>ECE Core</span></div>
-                <h3 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">ECE Core Courses</h3>
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">ECE Core Courses</h3>
                 
                 <div class="semester-section">
                     <div class="semester-header">
@@ -910,34 +636,12 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Network Analysis</h5>
-                                <p>Circuit theorems, network topology, two-port networks, and transient analysis.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Circuits</span>
-                                    <span class="tag">Theorems</span>
-                                    <span class="tag">Analysis</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Network Analysis</h5>
+                            <p>Circuit theorems, network topology, two-port networks, and transient analysis.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Electronic Devices</h5>
-                                <p>Semiconductor physics, diodes, BJTs, FETs, and device characteristics.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Semiconductors</span>
-                                    <span class="tag">BJT</span>
-                                    <span class="tag">MOSFET</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Electronic Devices</h5>
+                            <p>Semiconductor physics, diodes, BJTs, FETs, and device characteristics.</p>
                         </div>
                     </div>
                 </div>
@@ -949,34 +653,12 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Analog Electronics</h5>
-                                <p>Amplifiers, oscillators, feedback systems, and operational amplifiers.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Amplifiers</span>
-                                    <span class="tag">Op-Amp</span>
-                                    <span class="tag">Feedback</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Analog Electronics</h5>
+                            <p>Amplifiers, oscillators, feedback systems, and operational amplifiers.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Signals & Systems</h5>
-                                <p>Fourier analysis, Laplace transforms, Z-transforms, and system properties.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Fourier</span>
-                                    <span class="tag">Laplace</span>
-                                    <span class="tag">Z-Transform</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Signals & Systems</h5>
+                            <p>Fourier analysis, Laplace transforms, Z-transforms, and system properties.</p>
                         </div>
                     </div>
                 </div>
@@ -988,34 +670,12 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Digital Electronics</h5>
-                                <p>Logic gates, combinational circuits, sequential circuits, and memory systems.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Logic Design</span>
-                                    <span class="tag">Sequential</span>
-                                    <span class="tag">Memory</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Digital Electronics</h5>
+                            <p>Logic gates, combinational circuits, sequential circuits, and memory systems.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Control Systems</h5>
-                                <p>Transfer functions, stability analysis, PID controllers, and state-space.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Control</span>
-                                    <span class="tag">PID</span>
-                                    <span class="tag">Stability</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Control Systems</h5>
+                            <p>Transfer functions, stability analysis, PID controllers, and state-space.</p>
                         </div>
                     </div>
                 </div>
@@ -1023,9 +683,8 @@
 
             <!-- AI & ML Notes -->
             <div id="ai-notes" class="notes-detail">
-                <button class="back-button" onclick="backToNotesOverview()">← Back to Categories</button>
-                <div class="breadcrumb">Home / Notes / <span>AI & Machine Learning</span></div>
-                <h3 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">AI & Machine Learning</h3>
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">AI & Machine Learning</h3>
                 
                 <div class="semester-section">
                     <div class="semester-header">
@@ -1034,34 +693,12 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Introduction to AI</h5>
-                                <p>Search algorithms, knowledge representation, and problem-solving techniques.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Search</span>
-                                    <span class="tag">Logic</span>
-                                    <span class="tag">Expert Systems</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Introduction to AI</h5>
+                            <p>Search algorithms, knowledge representation, and problem-solving techniques.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Machine Learning Basics</h5>
-                                <p>Supervised learning, regression, classification, and model evaluation.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Regression</span>
-                                    <span class="tag">Classification</span>
-                                    <span class="tag">Evaluation</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Machine Learning Basics</h5>
+                            <p>Supervised learning, regression, classification, and model evaluation.</p>
                         </div>
                     </div>
                 </div>
@@ -1073,49 +710,16 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Deep Learning</h5>
-                                <p>Neural networks, CNNs, RNNs, transformers, and modern architectures.</p>
-                                <div class="course-tags">
-                                    <span class="tag">CNN</span>
-                                    <span class="tag">RNN</span>
-                                    <span class="tag">Transformers</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Deep Learning</h5>
+                            <p>Neural networks, CNNs, RNNs, transformers, and modern architectures.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Natural Language Processing</h5>
-                                <p>Text processing, embeddings, language models, and sentiment analysis.</p>
-                                <div class="course-tags">
-                                    <span class="tag">NLP</span>
-                                    <span class="tag">Embeddings</span>
-                                    <span class="tag">LLMs</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Natural Language Processing</h5>
+                            <p>Text processing, embeddings, language models, and sentiment analysis.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Computer Vision</h5>
-                                <p>Image processing, object detection, segmentation, and recognition systems.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Detection</span>
-                                    <span class="tag">Segmentation</span>
-                                    <span class="tag">Recognition</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Computer Vision</h5>
+                            <p>Image processing, object detection, segmentation, and recognition systems.</p>
                         </div>
                     </div>
                 </div>
@@ -1123,9 +727,9 @@
 
             <!-- Embedded Systems Notes -->
             <div id="embedded-notes" class="notes-detail">
-                <button class="back-button" onclick="backToNotesOverview()">← Back to Categories</button>
-                <div class="breadcrumb">Home / Notes / <span>Embedded Systems</span></div>
-                <h3 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">Embedded Systems</h3>
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">Embedded Systems</h3>
+                
                 <div class="semester-section">
                     <div class="semester-header">
                         <h4>Core Courses</h4>
@@ -1133,49 +737,16 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Microprocessors & Microcontrollers</h5>
-                                <p>8051, ARM, AVR architecture, programming, and interfacing.</p>
-                                <div class="course-tags">
-                                    <span class="tag">8051</span>
-                                    <span class="tag">ARM</span>
-                                    <span class="tag">AVR</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Microprocessors & Microcontrollers</h5>
+                            <p>8051, ARM, AVR architecture, programming, and interfacing.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Real-Time Operating Systems</h5>
-                                <p>Task scheduling, synchronization, and embedded OS concepts.</p>
-                                <div class="course-tags">
-                                    <span class="tag">RTOS</span>
-                                    <span class="tag">Scheduling</span>
-                                    <span class="tag">FreeRTOS</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Real-Time Operating Systems</h5>
+                            <p>Task scheduling, synchronization, and embedded OS concepts.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>IoT Systems</h5>
-                                <p>Sensors, actuators, communication protocols, and cloud integration.</p>
-                                <div class="course-tags">
-                                    <span class="tag">IoT</span>
-                                    <span class="tag">Sensors</span>
-                                    <span class="tag">Cloud</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>IoT Systems</h5>
+                            <p>Sensors, actuators, communication protocols, and cloud integration.</p>
                         </div>
                     </div>
                 </div>
@@ -1183,9 +754,9 @@
 
             <!-- VLSI Notes -->
             <div id="vlsi-notes" class="notes-detail">
-                <button class="back-button" onclick="backToNotesOverview()">← Back to Categories</button>
-                <div class="breadcrumb">Home / Notes / <span>VLSI Design</span></div>
-                <h3 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">VLSI Design</h3>
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">VLSI Design</h3>
+                
                 <div class="semester-section">
                     <div class="semester-header">
                         <h4>Design & Fabrication</h4>
@@ -1193,34 +764,12 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Digital VLSI Design</h5>
-                                <p>CMOS logic, layout design, timing analysis, and power optimization.</p>
-                                <div class="course-tags">
-                                    <span class="tag">CMOS</span>
-                                    <span class="tag">Layout</span>
-                                    <span class="tag">Timing</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Digital VLSI Design</h5>
+                            <p>CMOS logic, layout design, timing analysis, and power optimization.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Analog VLSI</h5>
-                                <p>Analog circuit design, operational transconductance amplifiers, and PLLs.</p>
-                                <div class="course-tags">
-                                    <span class="tag">Analog</span>
-                                    <span class="tag">OTA</span>
-                                    <span class="tag">PLL</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Analog VLSI</h5>
+                            <p>Analog circuit design, operational transconductance amplifiers, and PLLs.</p>
                         </div>
                     </div>
                 </div>
@@ -1228,9 +777,9 @@
 
             <!-- Communications Notes -->
             <div id="communications-notes" class="notes-detail">
-                <button class="back-button" onclick="backToNotesOverview()">← Back to Categories</button>
-                <div class="breadcrumb">Home / Notes / <span>Communication Systems</span></div>
-                <h3 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">Communication Systems</h3>
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">Communication Systems</h3>
+                
                 <div class="semester-section">
                     <div class="semester-header">
                         <h4>Core Topics</h4>
@@ -1238,26 +787,92 @@
                     </div>
                     <div class="course-list">
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Analog Communication</h5>
-                                <p>AM, FM, modulation techniques, and receiver design.</p>
-                                <div class="course-tags">
-                                    <span class="tag">AM</span>
-                                    <span class="tag">FM</span>
-                                    <span class="tag">Modulation</span>
-                                </div>
-                            </div>
-                            <div class="course-actions">
-                                <button class="action-btn" onclick="alert('Download feature coming soon!')">📥 Download</button>
-                                <button class="action-btn" onclick="alert('View feature coming soon!')">👁️ View</button>
-                            </div>
+                            <h5>Analog Communication</h5>
+                            <p>AM, FM, modulation techniques, and receiver design.</p>
                         </div>
                         <div class="course-item">
-                            <div class="course-content">
-                                <h5>Digital Communication</h5>
-                                <p>Digital modulation, channel coding, error correction, and equalization.</p>
-                                <div class="course-tags">
-                                    <span class="tag">PSK</span>
-                                    <span class="tag">QAM</span>
-                                    <span class="tag">Coding</span>
-                                </div>
+                            <h5>Digital Communication</h5>
+                            <p>Digital modulation, channel coding, error correction, and equalization.</p>
+                        </div>
+                        <div class="course-item">
+                            <h5>Wireless Networks</h5>
+                            <p>WiFi, Bluetooth, 5G, and mobile communication systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programming Notes -->
+            <div id="programming-notes" class="notes-detail">
+                <button class="back-button" onclick="backToNotesOverview()">← Back</button>
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 2rem;">Programming Languages</h3>
+                
+                <div class="semester-section">
+                    <div class="semester-header">
+                        <h4>Languages & Tools</h4>
+                        <span class="semester-badge">10 Courses</span>
+                    </div>
+                    <div class="course-list">
+                        <div class="course-item">
+                            <h5>C Programming</h5>
+                            <p>Fundamentals, pointers, data structures, and memory management.</p>
+                        </div>
+                        <div class="course-item">
+                            <h5>Python</h5>
+                            <p>Syntax, libraries, data science tools, and automation scripts.</p>
+                        </div>
+                        <div class="course-item">
+                            <h5>MATLAB</h5>
+                            <p>Signal processing, simulation, and engineering computations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Remove active class from all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Add active class to selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Notes Navigation
+        function showBranchNotes(branch) {
+            document.getElementById('notesOverview').style.display = 'none';
+            document.getElementById(branch + '-notes').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function backToNotesOverview() {
+            document.querySelectorAll('.notes-detail').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            document.getElementById('notesOverview').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
